@@ -1,0 +1,18 @@
+{
+  "name": "create-artifactory-access-config",
+  "version": "1.0.0",
+  "description": "Adds proper access configuration to your global .yarnrc.yml config file for usage of an Artifactory instance.",
+  "main": "src/index.js",
+  "bin": "src/index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "Instana, Inc.",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "inquirer": "^7.3.3",
+    "js-yaml": "^3.14.1",
+    "node-fetch": "^2.6.1"
+  }
+}
