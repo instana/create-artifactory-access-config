@@ -1,7 +1,14 @@
 {
   "name": "create-artifactory-access-config",
   "version": "1.0.0",
-  "description": "Adds proper access configuration to your global .yarnrc.yml config file for usage of an Artifactory instance.",
+  "description": "Adds proper access configuration to your global .yarnrc.yml config file for usage of Artifactory.",
+  "keywords": [
+    "artifactory",
+    "registry",
+    "yarnrc",
+    "berry",
+    "yarn"
+  ],
   "main": "src/index.js",
   "bin": "src/index.js",
   "scripts": {
@@ -9,6 +16,21 @@
   },
   "author": "Instana, Inc.",
   "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "files": [
+    "src",
+    "CHANGELOG.md",
+    "LICENSE",
+    "yarn.lock"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/instana/create-artifactory-access-config.git"
+  },
+  "homepage": "https://github.com/instana/create-artifactory-access-config",
+  "bugs": "https://github.com/instana/create-artifactory-access-config/issues",
   "dependencies": {
     "chalk": "^4.1.0",
     "inquirer": "^7.3.3",
