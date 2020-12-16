@@ -21,7 +21,7 @@ npx create-artifactory-access-config
 `REPOSITORY_KEY` environment variables. This comes in handy within onboarding guides!
 
 ```sh
-REGISTRY="https://artifactory.example.com" REGISTRY_KE="npm-example" yarn create artifactory-access-config
+REGISTRY="https://artifactory.example.com" REGISTRY_KEY="npm-example" yarn create artifactory-access-config
 ```
 
 ## Security
