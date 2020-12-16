@@ -1,31 +1,22 @@
 const { safeLoad, safeDump } = require("js-yaml");
 const fs = require("fs").promises;
+const chalk = require("chalk");
 const path = require("path");
 
 const { abortScriptExecution } = require("./abort");
 
-const fullyQualifiedPathToGlobalYarnRc = path.join(process.env.HOME, ".yarnrc.yml");
+const fullyQualifiedPathToGlobalYarnRc = path.join(
+  process.env.HOME,
+  ".yarnrc.yml"
+);
 
-exports.writeToYarnConfig = async ({ resolvedRegistry, authIdent, authToken }) => {
+exports.writeToYarnConfig = async (opts) => {
   const config = await loadGlobalRcFile();
-
-  if (!config.npmRegistries) {
-    config.npmRegistries = {};
-  }
-
-  if (!config.npmRegistries[resolvedRegistry]) {
-    config.npmRegistries[resolvedRegistry] = {};
-  }
-
-  config.npmRegistries[resolvedRegistry].npmAlwaysAuth = true;
-  if (authIdent) {
-    config.npmRegistries[resolvedRegistry].npmAuthIdent = authIdent;
-  }
-  if (authToken) {
-    config.npmRegistries[resolvedRegistry].npmAuthToken = authToken;
-  }
-
+  addAuthenticationInformation(config, opts);
   await writeGlobalRcFile(config);
+  console.log(
+    chalk.green(`✅ Successfully updated ${fullyQualifiedPathToGlobalYarnRc}`)
+  );
 };
 
 async function loadGlobalRcFile() {
@@ -41,7 +32,7 @@ async function loadGlobalRcFile() {
     } else {
       console.error(
         chalk.red(
-          `Failed to read global yarn configuration file at '${fullyQualifiedPathToGlobalYarnRc}'`
+          `Failed to read global Yarn 2 configuration file at '${fullyQualifiedPathToGlobalYarnRc}'`
         ),
         e
       );
@@ -52,11 +43,11 @@ async function loadGlobalRcFile() {
   }
 
   try {
-    return safeLoad(fileContent);
+    return safeLoad(fileContent) || {};
   } catch (e) {
     console.error(
       chalk.red(
-        `Failed to parse global yarn configuration file at '${fullyQualifiedPathToGlobalYarnRc}'`
+        `Failed to parse global Yarn 2 configuration file at '${fullyQualifiedPathToGlobalYarnRc}'`
       ),
       e
     );
@@ -69,3 +60,21 @@ async function loadGlobalRcFile() {
 async function writeGlobalRcFile(config) {
   await fs.writeFile(fullyQualifiedPathToGlobalYarnRc, safeDump(config));
 }
+
+function addAuthenticationInformation(config, { resolvedRegistry, authIdent, authToken }) {
+  if (!config.npmRegistries) {
+    config.npmRegistries = {};
+  }
+
+  if (!config.npmRegistries[resolvedRegistry]) {
+    config.npmRegistries[resolvedRegistry] = {};
+  }
+
+  config.npmRegistries[resolvedRegistry].npmAlwaysAuth = true;
+  if (authIdent) {
+    config.npmRegistries[resolvedRegistry].npmAuthIdent = authIdent;
+  }
+  if (authToken) {
+    config.npmRegistries[resolvedRegistry].npmAuthToken = authToken;
+  }
+};
