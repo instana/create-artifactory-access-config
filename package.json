@@ -1,6 +1,6 @@
 {
   "name": "create-artifactory-access-config",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Adds proper access configuration to your global .yarnrc.yml config file for usage of Artifactory.",
   "keywords": [
     "artifactory",
