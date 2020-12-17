@@ -3,10 +3,11 @@ const fs = require("fs").promises;
 const chalk = require("chalk");
 const path = require("path");
 
+const { isPreferringLocalConfigurationFiles } = require("./env");
 const { abortScriptExecution } = require("./abort");
 
 const fullyQualifiedPathToGlobalYarnRc = path.join(
-  process.env.HOME,
+  isPreferringLocalConfigurationFiles ? process.cwd() : process.env.HOME,
   ".yarnrc.yml"
 );
 
@@ -32,7 +33,7 @@ async function loadGlobalRcFile() {
     } else {
       console.error(
         chalk.red(
-          `Failed to read global Yarn 2 configuration file at '${fullyQualifiedPathToGlobalYarnRc}'`
+          `Failed to read Yarn 2 configuration file at '${fullyQualifiedPathToGlobalYarnRc}'`
         ),
         e
       );
@@ -47,7 +48,7 @@ async function loadGlobalRcFile() {
   } catch (e) {
     console.error(
       chalk.red(
-        `Failed to parse global Yarn 2 configuration file at '${fullyQualifiedPathToGlobalYarnRc}'`
+        `Failed to parse Yarn 2 configuration file at '${fullyQualifiedPathToGlobalYarnRc}'`
       ),
       e
     );

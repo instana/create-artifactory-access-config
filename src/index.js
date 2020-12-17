@@ -9,11 +9,11 @@ const {writeToNpmConfig} = require('./npm');
 const {prompt} = require('./prompt');
 
 (async () => {
-  console.log('\nThis script will update your global Yarn configuration');
+  console.log('\nThis script will update your NPM/Yarn configuration');
   console.log('files with Artifactory authentication configuration.');
   console.log();
   console.log('Please answer the following questions to provide necessary');
-  console.log('authentication information. Please return to confirm');
+  console.log('authentication information. Press return to confirm');
   console.log('or to select the shown default.');
   console.log();
 

@@ -2,10 +2,11 @@ const fs = require("fs").promises;
 const chalk = require("chalk");
 const path = require("path");
 
+const { isPreferringLocalConfigurationFiles } = require("./env");
 const { abortScriptExecution } = require("./abort");
 
 const fullyQualifiedPathToGlobalNpmRc = path.join(
-  process.env.HOME,
+  isPreferringLocalConfigurationFiles ? process.cwd() : process.env.HOME,
   ".npmrc"
 );
 
@@ -20,7 +21,7 @@ exports.writeToNpmConfig = async (opts) => {
 
 async function loadGlobalRcFile() {
   try {
-    return fs.readFile(fullyQualifiedPathToGlobalNpmRc, {
+    return await fs.readFile(fullyQualifiedPathToGlobalNpmRc, {
       encoding: "utf8",
     });
   } catch (e) {

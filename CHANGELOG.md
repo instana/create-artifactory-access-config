@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+ - Option `WRITE_TO_CWD=true` added through which the identified configuration can be written to
+   configuration files in the current working directory. This can come in handy for CI cases.
+
 ## 1.2.0
  - Support a non-interactive mode via a `NON_INTERACTIVE=true` env var.
  - Accept username / password values via environment variables `USERNAME` and `PASSWORD`.
