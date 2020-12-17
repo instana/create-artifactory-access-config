@@ -32,9 +32,10 @@ exports.prompt = async () => {
       default: environmentVariableValues.username
     },
     {
-      type: 'input',
+      type: 'password',
       name: 'password',
       message: 'Password / API Key',
+      mask: '*',
       default: environmentVariableValues.password
     }
   ]);

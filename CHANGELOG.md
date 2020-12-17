@@ -3,6 +3,7 @@
 ## 1.2.0
  - Support a non-interactive mode via a `NON_INTERACTIVE=true` env var.
  - Accept username / password values via environment variables `USERNAME` and `PASSWORD`.
+ - Hide password input.
 
 ## 1.1.0
  - Also configure global `.npmrc` files.
