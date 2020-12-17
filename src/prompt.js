@@ -1,28 +1,41 @@
 const inquirer = require('inquirer');
 
 exports.prompt = async () => {
+  const environmentVariableValues = {
+    registry: process.env.REGISTRY,
+    repositoryKey: process.env.REPOSITORY_KEY,
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD
+  };
+
+  if (process.env.NON_INTERACTIVE === 'true') {
+    return environmentVariableValues;
+  }
+
   return inquirer.prompt([
     {
       type: 'input',
       name: 'registry',
       message: 'Registry URL',
-      default: process.env.REGISTRY
+      default: environmentVariableValues.registry
     },
     {
       type: 'input',
       name: 'repositoryKey',
       message: 'Repository Key',
-      default: process.env.REPOSITORY_KEY
+      default: environmentVariableValues.repositoryKey
     },
     {
       type: 'input',
       name: 'username',
-      message: 'Username'
+      message: 'Username',
+      default: environmentVariableValues.username
     },
     {
       type: 'input',
       name: 'password',
-      message: 'Password / API Key'
+      message: 'Password / API Key',
+      default: environmentVariableValues.password
     }
   ]);
 };
